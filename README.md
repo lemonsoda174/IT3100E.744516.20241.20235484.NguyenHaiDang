@@ -1,1 +1,2 @@
-"# IT3100E.744516.20241.20235484.NguyenHaiDang" 
+My repository for lab OOP class at HUST
+
