@@ -36,8 +36,6 @@ public class SimpleCalc {
 
             System.exit(0);
         }
-        
-        
 
     }
 
