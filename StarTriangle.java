@@ -12,5 +12,6 @@ public class StarTriangle {
             asterisks = new String(new char[2*i-1]).replace("\0", "*");
             System.out.println(spaces + asterisks + spaces);
           }
+          n_input.close();
     }
 }
