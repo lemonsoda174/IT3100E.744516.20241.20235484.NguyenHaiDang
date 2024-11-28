@@ -1,27 +1,29 @@
 public class TestPassingParameter {
-    public static void main(String[] args){
-
+    
+    public static void main(String[] args) {
         DigitalVideoDisc jungleDVD = new DigitalVideoDisc("Jungle");
         DigitalVideoDisc cinderellaDVD = new DigitalVideoDisc("Cinderella");
 
-        swap(jungleDVD, cinderellaDVD);
-        System.out.println("jungle dvd title: " + jungleDVD.getTitle());
-        System.out.println("cinderella dvd title: "+ cinderellaDVD.getTitle());
+        DigitalVideoDiscWrapper wjungleDVD = new DigitalVideoDiscWrapper(jungleDVD);
+        DigitalVideoDiscWrapper wcinderellaDVD = new DigitalVideoDiscWrapper(cinderellaDVD);
 
-        changeTitle(jungleDVD, cinderellaDVD.getTitle());
-        System.out.println("jungle dvd title: " + jungleDVD.getTitle());
+        // Correct swap() function
+        swap(wjungleDVD, wcinderellaDVD);
+        System.out.println("Jungle dvd title: " + wjungleDVD.dvd.getTitle());
+        System.out.println("Cinderella dvd title: " + wcinderellaDVD.dvd.getTitle());
     }
 
-    public static void swap(DigitalVideoDisc o1, DigitalVideoDisc o2){
-        String titleTmp = o1.getTitle();
-        changeTitle(o1, o2.getTitle());
-        changeTitle(o2, titleTmp);
+    public static void swap(DigitalVideoDiscWrapper o1, DigitalVideoDiscWrapper o2) {
+        DigitalVideoDisc tmp = o1.dvd;
+        o1.dvd = o2.dvd;
+        o2.dvd = tmp;
     }
 
-    public static void changeTitle(DigitalVideoDisc dvd,String title){
+    public static void changeTitle(DigitalVideoDisc dvd, String title) {
         String oldTitle = dvd.getTitle();
         dvd.setTitle(title);
         dvd = new DigitalVideoDisc(oldTitle);
     }
+
     
 }
