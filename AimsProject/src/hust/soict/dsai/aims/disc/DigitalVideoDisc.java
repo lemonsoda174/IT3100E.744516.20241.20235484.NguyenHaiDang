@@ -1,4 +1,7 @@
+package hust.soict.dsai.aims.disc;
 public class DigitalVideoDisc {
+    private static int nbDigitalVideoDiscs = 0;
+    private int id;
     private String title;
     private String category;
     private String director;
@@ -19,23 +22,33 @@ public class DigitalVideoDisc {
     public float getCost() {
         return cost;
     }
+    public int getId() {
+        return id;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
     public DigitalVideoDisc(String title) {
         this.title = title;
+        this.id = ++nbDigitalVideoDiscs;
     }
     public DigitalVideoDisc(String title, String category) {
         this.title = title;
         this.category = category;
+        this.id = ++nbDigitalVideoDiscs;
     }
     public DigitalVideoDisc(String title, String category, float cost) {
         this.title = title;
         this.category = category;
         this.cost = cost;
+        this.id = ++nbDigitalVideoDiscs;
     }
     public DigitalVideoDisc(String title, String category, String director, float cost) {
         this.title = title;
         this.category = category;
         this.director = director;
         this.cost = cost;
+        this.id = ++nbDigitalVideoDiscs;
     }
     public DigitalVideoDisc(String title, String category, String director, int length, float cost) {
         this.title = title;
@@ -43,5 +56,18 @@ public class DigitalVideoDisc {
         this.director = director;
         this.length = length;
         this.cost = cost;
+        this.id = ++nbDigitalVideoDiscs;
+    }
+
+    public String toString() {
+        return this.id + ". DVD: " + this.title +
+                " - Category: " + this.category +
+                " - Director: " + this.title +
+                " - DVD length: " + this.length +
+                " - Cost: " + this.cost + "$";
+    }
+
+    public boolean isMatch(String title) {
+        return this.title.toLowerCase().contains(title.toLowerCase());
     }
 }
