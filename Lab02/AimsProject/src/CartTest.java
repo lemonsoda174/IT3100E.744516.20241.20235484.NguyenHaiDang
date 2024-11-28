@@ -15,9 +15,13 @@ public class CartTest {
         cart.print();
 
         cart.searchByID(1);
+        System.out.println();
         cart.searchByTitle("a");
+        System.out.println();
         cart.searchByCategory("Science");
+        System.out.println();
         cart.searchByPrice(2000);
+        System.out.println();
         cart.searchByPrice(1900,2000);
     }
 }
