@@ -1,4 +1,6 @@
 public class DigitalVideoDisc {
+    private static int nbDigitalVideoDiscs = 0;
+    private int id;
     private String title;
     private String category;
     private String director;
