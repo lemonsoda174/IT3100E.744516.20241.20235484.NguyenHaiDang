@@ -37,6 +37,70 @@ public class Cart {
         System.out.println("Cannot find disc in Cart"); 
     }
 
+    public void searchByTitle(String keyword) {
+        boolean matchFound = false;
+        for (int i = 0; i < qtyOrdered; i++) {
+            if (itemsOrdered[i].isMatch(keyword)) {
+                System.out.println("Found " + itemsOrdered[i]);
+                matchFound = true;
+            }
+        }
+        if (!matchFound) {
+            System.out.println("No DVD with \"" + keyword +"\" in the title!");
+        }
+    }
+    
+    public void searchByCategory(String category) {
+        boolean found = false;
+        for (int i = 0; i < qtyOrdered; i++) {
+            if (itemsOrdered[i].getCategory().equalsIgnoreCase(category)) {
+                System.out.println("Found " + itemsOrdered[i]);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No DVD matching the \"" + category + "\" category were found!");
+        }
+    }
+
+    public void searchByPrice(float maxCost) {
+        boolean matchFound = false;
+        for (int i = 0; i < qtyOrdered; i++) {
+            if (itemsOrdered[i].getCost() <= maxCost) {
+                System.out.println("Found " + itemsOrdered[i]);
+                matchFound = true;
+            }
+        }
+        if (!matchFound) {
+            System.out.println("No DVD with price lower than given price!");
+        }
+    }
+    public void searchByPrice(float minCost, float maxCost) {
+        boolean matchFound = false;
+        for (int i = 0; i < qtyOrdered; i++) {
+            if (itemsOrdered[i].getCost() >= minCost && itemsOrdered[i].getCost() <= maxCost) {
+                System.out.println("Found " + itemsOrdered[i]);
+                matchFound = true;
+            }
+        }
+        if (!matchFound) {
+            System.out.println("No DVD within cost range!");
+        }
+    }
+
+    public void searchByID(int id) {
+        boolean found = false;
+        for (int i = 0; i < qtyOrdered; i++) {
+            if (itemsOrdered[i].getId() == id) {
+                System.out.println("Found " + itemsOrdered[i]);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No ID match!");
+        }
+    }
+
     // Method to calculate the total cost of DVDs in the cart
     public String totalCost() {
         float total = 0;
