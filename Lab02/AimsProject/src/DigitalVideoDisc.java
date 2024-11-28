@@ -4,6 +4,9 @@ public class DigitalVideoDisc {
     private String director;
     private int length;
     private float cost;
+    public void setTitle(String titleSet){
+        this.title = titleSet;
+    }
     public String getTitle() {
         return title;
     }
