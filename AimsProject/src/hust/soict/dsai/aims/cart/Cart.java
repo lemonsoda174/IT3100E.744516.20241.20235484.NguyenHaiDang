@@ -13,6 +13,9 @@ public class Cart {
         if (itemsOrdered.size() >= MAX_NUMBERS_ORDERED) {
             System.out.println("The cart is full.");
         }
+        else if (itemsOrdered.contains(media)) {
+            System.out.println(media.getTitle() + " is already in the cart!");
+        }
         else {
             itemsOrdered.add(media);
             System.out.println(media.getTitle() + " has been added!");
