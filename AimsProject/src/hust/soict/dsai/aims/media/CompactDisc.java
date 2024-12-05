@@ -47,7 +47,7 @@ public class CompactDisc extends Disc implements Playable{
         }
         return totalLength;
     }
-
+    @Override
     public void play() {
         System.out.println("Playing CD: " + this.getTitle());
         System.out.println("CD length: " + this.getLength());
@@ -58,7 +58,7 @@ public class CompactDisc extends Disc implements Playable{
 
     @Override
     public String toString() {
-        return "CD: " + this.getTitle() +
+        return this.getId() + " - CD: " + this.getTitle() +
                 " - Category: " + this.getCategory() +
                 " - Artist: " + this.getArtist() +
                 " - Length: " + this.getLength() +

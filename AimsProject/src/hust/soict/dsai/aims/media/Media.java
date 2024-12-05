@@ -60,6 +60,10 @@ public abstract class Media {
         return this.getTitle().toLowerCase().contains(title.toLowerCase());
     }
 
+    public void play() {
+        System.out.println("Playing media");
+    }
+        
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
