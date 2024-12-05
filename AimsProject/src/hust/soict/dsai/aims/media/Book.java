@@ -33,4 +33,11 @@ public class Book extends Media{
             System.out.println("No existing author with that name.");
         }
     }
+
+    @Override
+    public String toString() {
+        return "Book: " + this.getTitle() +
+                " - Category: " + this.getCategory() +
+                " - Cost: " + this.getCost() + "$";
+    }
 }
