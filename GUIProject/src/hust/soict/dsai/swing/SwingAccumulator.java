@@ -6,7 +6,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class SwingAccumulator {
+public class SwingAccumulator extends JFrame {
+    
     private JTextField tfInput;
     private JTextField tfOutput;
     private int sum = 0;
