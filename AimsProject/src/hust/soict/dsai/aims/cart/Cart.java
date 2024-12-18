@@ -153,6 +153,16 @@ public class Cart {
         }
     }
 
+    public String placeOrder() {
+        if (itemsOrdered.size() == 0) {
+            return "Your cart is empty!";
+        } else {
+            qtyOrdered = 0;
+            itemsOrdered.clear();
+            return "Order created!\n" + "Now your cart will be empty!";
+        }
+    }
+
      // Sort media in cart
      public void sortMediaByTitle() {
         Collections.sort((List<Media>)itemsOrdered, Media.COMPARE_BY_TITLE_COST);

@@ -9,7 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-
+import javafx.collections.transformation.FilteredList;
 
 public class CartScreenController {
     private Cart cart;
@@ -46,6 +46,27 @@ public class CartScreenController {
 
     @FXML
     private TextField tfFilter;
+
+    @FXML
+    private Button placeOrder;
+
+    @FXML
+    void placeOrderPressed(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, cart.placeOrder());
+        alert.setTitle("Order created");
+        alert.setHeaderText(null);
+        alert.showAndWait();
+    }
+
+    @FXML
+    void btnPlayPressed(ActionEvent event) {
+        Media media = tblMedia.getSelectionModel().getSelectedItem();
+        Alert alert = new Alert(Alert.AlertType.NONE, media.playGUI());
+        alert.setTitle("Playing");
+        alert.setHeaderText(null);
+        alert.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        alert.showAndWait();
+    }
 
     @FXML
     void btnRemovePressed(ActionEvent event) {
@@ -97,5 +118,30 @@ public class CartScreenController {
                 }
             }
         );
+
+        tfFilter.textProperty().addListener(
+            new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                showFilteredMedia(newValue);
+            }
+            private void showFilteredMedia(String keyword) {
+                FilteredList<Media> filteredList = new FilteredList<>(cart.getItemsOrdered());
+                if (!keyword.isEmpty() && radioBtnFilterId.isSelected()) {
+                    filteredList.setPredicate(media -> {
+                        String idString = String.valueOf(media.getId());
+                        return idString.equals(keyword);
+                    });
+                } else if (!keyword.isEmpty() &&  radioBtnFilterTitle.isSelected()) {
+                    filteredList.setPredicate(media -> {
+                        String title = media.getTitle().toLowerCase();
+                        return title.contains(keyword.toLowerCase());
+                    });
+                } else {
+                    filteredList.setPredicate(null);
+                }
+                tblMedia.setItems(filteredList);
+            }
+        });
     }
 }
