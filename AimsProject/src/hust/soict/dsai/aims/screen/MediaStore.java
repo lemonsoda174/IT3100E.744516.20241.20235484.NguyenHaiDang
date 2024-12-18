@@ -3,8 +3,8 @@ package hust.soict.dsai.aims.screen;
 import javax.swing.*;
 import java.awt.*;
 
-import hust.soict.cybersec.aims.cart.Cart;
-import hust.soict.cybersec.aims.media.*;
+import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.media.*;
 import hust.soict.dsai.aims.media.Playable;
 import javafx.event.ActionEvent;
 import javafx.scene.paint.Color;

@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 
 import hust.soict.dsai.aims.store.Store;
+import javafx.event.ActionEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import hust.soict.dsai.aims.cart.Cart;
 import hust.soict.dsai.aims.media.*;
 
@@ -21,16 +24,6 @@ public class StoreScreen extends JFrame {
         store.addMedia(dvd1);
         store.addMedia(dvd2);
         store.addMedia(dvd3);
-
-        DigitalVideoDisc dvd1a = new DigitalVideoDisc("Alaaaaadin", "Animation", 18.99f);
-        DigitalVideoDisc dvd1b = new DigitalVideoDisc("Alaaaaaadin", "Animation", 18.99f);
-        DigitalVideoDisc dvd1c = new DigitalVideoDisc("Alaaassaadin", "Animation", 18.99f);
-        DigitalVideoDisc dvd1e = new DigitalVideoDisc("Alaaaaaaaadin", "Animation", 18.99f);
-        store.addMedia(dvd1a);
-        store.addMedia(dvd1b);
-        store.addMedia(dvd1c);
-        store.addMedia(dvd1e);
-        
     
         Book book = new Book("The Valley of Fear", "Detective", 20.00f);
         Book book1 = new Book("A Living Remedy: A Memoir", "Biography", 202.00f);
@@ -102,13 +95,33 @@ public class StoreScreen extends JFrame {
         JMenu menu = new JMenu("Options");
 
         JMenu smUpdateStore = new JMenu("Update Store");
-        smUpdateStore.add(new JMenuItem("Add Book"));
-        smUpdateStore.add(new JMenuItem("Add CD"));
-        smUpdateStore.add(new JMenuItem("Add DVD"));        
+        JMenuItem smAddBook = new JMenuItem("Add Book");
+        JMenuItem smAddCD = new JMenuItem("Add CD");
+        JMenuItem smAddDVD = new JMenuItem("Add DVD");
+        smUpdateStore.add(smAddBook);
+        smUpdateStore.add(smAddCD);
+        smUpdateStore.add(smAddDVD);        
+        smAddBook.addActionListener(new btnMenuListener());
+        smAddCD.addActionListener(new btnMenuListener());
+        smAddDVD.addActionListener(new btnMenuListener());
 
         menu.add(smUpdateStore);
-        menu.add(new JMenuItem("View store"));
-        menu.add(new JMenuItem("View cart"));
+        JMenuItem viewStoreMenu = new JMenuItem("View store");
+        JMenuItem viewCartMenu = new JMenuItem("View cart");
+        menu.add(viewStoreMenu);
+        menu.add(viewCartMenu);
+        viewStoreMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new StoreScreen(store);
+            }
+        });
+        viewCartMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CartScreen(cart);
+            }
+        });
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -116,6 +129,21 @@ public class StoreScreen extends JFrame {
 
         return menuBar;
     }
+
+    private class btnMenuListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String command = e.getActionCommand();
+			if (command.equals("Add Book")) {
+				new AddBookToStoreScreen(store);
+			} else if (command.equals("Add CD")) {
+				new AddCompactDiscToStoreScreen(store);
+			} else if (command.equals("Add DVD")) {
+				new AddDigitalVideoDiscToStoreScreen(store);
+			} 
+		}
+	}
+
 
     JPanel createHeader() {
 

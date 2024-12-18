@@ -1,44 +1,33 @@
 package hust.soict.dsai.aims.screen;
-
 import javax.swing.JFrame;
-import hust.soict.dsai.aims.screen.controller.CartScreenController;
+import hust.soict.dsai.aims.media.CompactDisc;
+import hust.soict.dsai.aims.screen.controller.AddTrackScreenController;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import hust.soict.dsai.aims.cart.Cart;
-
-
-
-public class CartScreen extends JFrame {
-
-    private static Cart cart;
-
+public class AddTrack extends JFrame{
+    private static CompactDisc CD;
     
     public static void main(String[] args) {
-		new CartScreen(cart);
+		new AddTrack(CD);
 	}
-    public CartScreen(Cart cart) {
-
+    public AddTrack(CompactDisc CD) {
         super();
-
-        CartScreen.cart = cart;
-
+        AddTrack.CD = CD;
         JFXPanel fxPanel = new JFXPanel();
         this.add(fxPanel);
-        
-        this.setTitle("Cart");
-        this.setSize(1024, 768);
+        this.setTitle("Add Tracks");
+        this.setSize(638, 300);
         this.setVisible(true);
-
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/hust/soict/dsai/aims/screen/view/cart.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/hust/soict/cybersec/aims/screen/view/addTracks.fxml"));
                     
-                    CartScreenController controller = new CartScreenController(cart);
+                    AddTrackScreenController controller = new AddTrackScreenController(CD);
                     loader.setController(controller);
                     Parent root = loader.load();
                     fxPanel.setScene(new Scene(root));
