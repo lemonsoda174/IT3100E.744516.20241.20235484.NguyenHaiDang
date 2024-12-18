@@ -15,17 +15,15 @@ public class Cart {
     public int qtyOrdered = 0;
 
     // Method to add a media item to the cart
-    public void addMedia(Media media) {
+    public String addMedia(Media media) {
         if (itemsOrdered.size() >= MAX_NUMBERS_ORDERED) {
-            System.out.println("The cart is full.");
-        }
-        else if (itemsOrdered.contains(media)) {
-            System.out.println(media.getTitle() + " is already in the cart!");
-        }
-        else {
-            itemsOrdered.add(media);
-            System.out.println(media.getTitle() + " has been added!");
+            return("The cart is almost full!");
+        } else if (itemsOrdered.contains(media)) {
+            return(media.getTitle() + " is already in the cart!");
+        } else {
             qtyOrdered +=1;
+            itemsOrdered.add(media);
+            return (media.getTitle() + " has been added!");
         }
     }
     

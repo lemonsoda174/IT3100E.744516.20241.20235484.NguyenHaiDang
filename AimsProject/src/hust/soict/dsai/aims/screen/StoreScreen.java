@@ -6,18 +6,31 @@ import javax.swing.*;
 import java.awt.*;
 
 import hust.soict.dsai.aims.store.Store;
+import hust.soict.dsai.aims.cart.Cart;
 import hust.soict.dsai.aims.media.*;
 
-public class StoreScreen extends JFrame{
+public class StoreScreen extends JFrame {
     private static Store store = new Store();
+    private static Cart cart = new Cart();
 
     public static void initSetup() {
+
         DigitalVideoDisc dvd1 = new DigitalVideoDisc("The Lion King", "Animation", "Roger Allers", 87, 19.95f);     
         DigitalVideoDisc dvd2 = new DigitalVideoDisc("Star War", "Science Fiction", "George Lucas", 87, 24.95f); 
         DigitalVideoDisc dvd3 = new DigitalVideoDisc("Aladin", "Animation", 18.99f);
         store.addMedia(dvd1);
         store.addMedia(dvd2);
         store.addMedia(dvd3);
+
+        DigitalVideoDisc dvd1a = new DigitalVideoDisc("Alaaaaadin", "Animation", 18.99f);
+        DigitalVideoDisc dvd1b = new DigitalVideoDisc("Alaaaaaadin", "Animation", 18.99f);
+        DigitalVideoDisc dvd1c = new DigitalVideoDisc("Alaaassaadin", "Animation", 18.99f);
+        DigitalVideoDisc dvd1e = new DigitalVideoDisc("Alaaaaaaaadin", "Animation", 18.99f);
+        store.addMedia(dvd1a);
+        store.addMedia(dvd1b);
+        store.addMedia(dvd1c);
+        store.addMedia(dvd1e);
+        
     
         Book book = new Book("The Valley of Fear", "Detective", 20.00f);
         Book book1 = new Book("A Living Remedy: A Memoir", "Biography", 202.00f);
@@ -25,6 +38,7 @@ public class StoreScreen extends JFrame{
         store.addMedia(book);
         store.addMedia(book1);
         store.addMedia(book2);
+
 
         CompactDisc cd1 = new CompactDisc("Adele - 30", "Music","Adele", 1500.98f);
         Track track1CD1 = new Track("All Night Parking (interlude)", 161);
@@ -41,6 +55,7 @@ public class StoreScreen extends JFrame{
         cd2.addTrack(track1CD2);
         cd2.addTrack(track2CD2);
         cd2.addTrack(track3CD2);
+
         CompactDisc cd3 = new CompactDisc("Purpose", "Music","Justin Bieber", 1000.98f);
         Track track1CD3 = new Track("The Feeling", 4*60+5);
         Track track2CD3 = new Track("No Sense", 4*60+35);
@@ -51,7 +66,14 @@ public class StoreScreen extends JFrame{
         store.addMedia(cd2);
         store.addMedia(cd3);
         
+
     }
+    
+    public static void main(String[] args) {
+        initSetup();
+		new StoreScreen(store);
+	}
+
 
     public StoreScreen(Store store) {
         StoreScreen.store = store;
@@ -60,11 +82,12 @@ public class StoreScreen extends JFrame{
 
         cp.add(createNorth(), BorderLayout.NORTH);
         cp.add(createCenter(), BorderLayout.CENTER);
-
-        setVisible(true);
+        
         setTitle("Store");
 		setSize(1024, 768);
-    }
+		setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }   
 
     JPanel createNorth() {
 		JPanel north = new JPanel();
@@ -73,7 +96,7 @@ public class StoreScreen extends JFrame{
 		north.add(createHeader());
 		return north;
 	}
-    
+
     JMenuBar createMenuBar() {
 
         JMenu menu = new JMenu("Options");
@@ -81,7 +104,7 @@ public class StoreScreen extends JFrame{
         JMenu smUpdateStore = new JMenu("Update Store");
         smUpdateStore.add(new JMenuItem("Add Book"));
         smUpdateStore.add(new JMenuItem("Add CD"));
-        smUpdateStore.add(new JMenuItem("Add DVD")); 
+        smUpdateStore.add(new JMenuItem("Add DVD"));        
 
         menu.add(smUpdateStore);
         menu.add(new JMenuItem("View store"));
@@ -103,14 +126,22 @@ public class StoreScreen extends JFrame{
         title.setFont(new Font(title.getFont().getName(), Font.PLAIN, 50));
         title.setForeground(Color.CYAN);
     
-        JButton cart = new JButton("View cart");
-        cart.setPreferredSize(new Dimension(100, 50));
-        cart.setMaximumSize(new Dimension(100, 50));
+        JButton cartBtn = new JButton("View cart");
+        cartBtn.setPreferredSize(new Dimension(100, 50));
+        cartBtn.setMaximumSize(new Dimension(100, 50));
+        cartBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CartScreen(cart);
+            }
+        });
+        
+
 
         header.add(Box.createRigidArea(new Dimension(10, 10)));
         header.add(title);
         header.add(Box.createHorizontalGlue());
-        header.add(cart);
+        header.add(cartBtn);
         header.add(Box.createRigidArea(new Dimension(10, 10)));
 
         return header;
@@ -121,13 +152,15 @@ public class StoreScreen extends JFrame{
         JPanel center = new JPanel();
         center.setLayout(new GridLayout(3, 3, 2, 2));
 
+
         ArrayList<Media> mediaInStore = store.getItemsInStore();
-        for (int i = 0; i < 9; i++) {
-            MediaStore cell = new MediaStore(mediaInStore.get(i));
+        for (int i = 0; i < mediaInStore.size(); i++) {
+            MediaStore cell = new MediaStore(mediaInStore.get(i), cart);
             center.add(cell);
         }
         
         return center;
     }
+
 }
 
