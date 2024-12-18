@@ -2,6 +2,7 @@ package hust.soict.dsai.aims.media;
 
 import java.time.Duration;
 import java.util.Comparator;
+import hust.soict.dsai.aims.exception.PlayerException;
 
 public abstract class Media {
 
@@ -65,7 +66,7 @@ public abstract class Media {
         System.out.println("Playing media");
     }
         
-    public String playGUI() {
+    public String playGUI() throws PlayerException {
         return "Playing media";
     }
 

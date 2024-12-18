@@ -2,6 +2,7 @@ package hust.soict.dsai.aims.screen.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import hust.soict.dsai.aims.media.CompactDisc;
 import hust.soict.dsai.aims.media.Track;
 import javafx.event.ActionEvent;
@@ -12,16 +13,22 @@ import javafx.scene.control.TextField;
 
 public class AddTrackScreenController {
     private CompactDisc CD;
+
     @FXML
     private ResourceBundle resources;
+
     @FXML
     private URL location;
+
     @FXML
     private Button btnSaveTrack;
+
     @FXML
     private TextField tfLength;
+
     @FXML
     private TextField tfTitle;
+    
     private boolean allFieldsFilled = false;
     
     public AddTrackScreenController(CompactDisc CD) {

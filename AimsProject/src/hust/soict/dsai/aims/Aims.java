@@ -1,4 +1,6 @@
 package hust.soict.dsai.aims;
+
+import javax.naming.LimitExceededException;
 import hust.soict.dsai.aims.cart.Cart;
 import hust.soict.dsai.aims.media.*;
 import hust.soict.dsai.aims.store.Store;
@@ -165,7 +167,11 @@ public class Aims {
                         }
                         Media media = store.search(title);
                         if (media != null) {
-                            cart.addMedia(media);
+                            try {
+                                cart.addMedia(media);
+                            } catch (LimitExceededException e) {
+                                e.printStackTrace();
+                            }
                             foundToAdd = true;
                         } else {
                             System.out.println("***MEDIA NOT FOUND***");
@@ -223,7 +229,11 @@ public class Aims {
                     back = true;
                     break;
                 case 1:
-                    cart.addMedia(media);
+                    try {
+                        cart.addMedia(media);
+                    } catch (LimitExceededException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 2:
                     if (media instanceof Disc || media instanceof CompactDisc) {

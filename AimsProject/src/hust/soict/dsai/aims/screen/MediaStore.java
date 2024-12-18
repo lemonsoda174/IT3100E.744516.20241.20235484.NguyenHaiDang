@@ -2,13 +2,14 @@ package hust.soict.dsai.aims.screen;
 
 import javax.swing.*;
 import java.awt.*;
-
-import hust.soict.dsai.aims.cart.Cart;
-import hust.soict.dsai.aims.media.*;
-import hust.soict.dsai.aims.media.Playable;
+import javax.naming.LimitExceededException;
 import javafx.event.ActionEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
+import hust.soict.dsai.aims.cart.Cart;
+import hust.soict.dsai.aims.media.*;
+import hust.soict.dsai.aims.exception.PlayerException;
 
 
 public class MediaStore extends JPanel {
@@ -29,7 +30,12 @@ public class MediaStore extends JPanel {
             JButton addToCartButton = new JButton("Add to cart");
             addToCartButton.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
-                    JOptionPane.showMessageDialog(null, cart.addMedia(media));
+                    try {
+                        String message = cart.addMedia(media);
+                        JOptionPane.showMessageDialog(null, message);
+                    } catch (LimitExceededException ex) {
+                        JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             });
             container.add(addToCartButton);
@@ -46,16 +52,20 @@ public class MediaStore extends JPanel {
                     dialog.setTitle(media.getTitle());
                     dialog.setSize(400, 300);
                     
-                    String mediaInfo = "<html>"+ media.playGUI().replace("\n", "<br/>") + "</html>";
-                    JLabel mediaLabel = new JLabel(mediaInfo);
-                    
-                    mediaLabel.setVerticalAlignment(JLabel.CENTER); 
-                    mediaLabel.setHorizontalAlignment(JLabel.CENTER);
-                    JScrollPane scrollPane = new JScrollPane(mediaLabel);
-                    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-                    
-                    dialog.add(scrollPane);
-                    dialog.setVisible(true);
+                    String mediaInfo = "";
+                    try {
+                        mediaInfo = "<html>"+ media.playGUI().replace("\n", "<br/>") + "</html>";
+                        JLabel mediaLabel = new JLabel(mediaInfo);
+                        mediaLabel.setVerticalAlignment(JLabel.CENTER); 
+                        mediaLabel.setHorizontalAlignment(JLabel.CENTER);
+                        JScrollPane scrollPane = new JScrollPane(mediaLabel);
+                        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+                        
+                        dialog.add(scrollPane);
+                        dialog.setVisible(true);
+                    } catch (PlayerException e1) {
+                        JOptionPane.showMessageDialog(null, e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             });
             container.add(playButton);

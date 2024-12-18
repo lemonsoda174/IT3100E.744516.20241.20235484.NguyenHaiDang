@@ -1,12 +1,14 @@
 package hust.soict.dsai.aims.cart;
 import java.util.*;
 
+import javax.naming.LimitExceededException;
 import hust.soict.dsai.aims.media.Media;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Cart {
-    public static final int MAX_NUMBERS_ORDERED = 20; // Maximum of 20 items in one cart
+    
+    public static final int MAX_NUMBERS_ORDERED = 20;
     private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
     public ObservableList<Media> getItemsOrdered() {
 		return itemsOrdered;
@@ -15,9 +17,9 @@ public class Cart {
     public int qtyOrdered = 0;
 
     // Method to add a media item to the cart
-    public String addMedia(Media media) {
+    public String addMedia(Media media) throws LimitExceededException {
         if (itemsOrdered.size() >= MAX_NUMBERS_ORDERED) {
-            return("The cart is almost full!");
+            throw new LimitExceededException("ERROR: The number of media has reached its limit");
         } else if (itemsOrdered.contains(media)) {
             return(media.getTitle() + " is already in the cart!");
         } else {
