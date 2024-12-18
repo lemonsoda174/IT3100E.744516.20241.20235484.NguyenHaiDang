@@ -2,10 +2,15 @@ package hust.soict.dsai.aims.cart;
 import java.util.*;
 
 import hust.soict.dsai.aims.media.Media;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Cart {
     public static final int MAX_NUMBERS_ORDERED = 20; // Maximum of 20 items in one cart
-    private ArrayList<Media> itemsOrdered = new ArrayList<Media>(); // Array to store media
+    private ObservableList<Media> itemsOrdered = FXCollections.observableArrayList();
+    public ObservableList<Media> getItemsOrdered() {
+		return itemsOrdered;
+	}
 
     public int qtyOrdered = 0;
 
@@ -121,7 +126,7 @@ public class Cart {
         for (Media media : itemsOrdered) {
             total += media.getCost();
         }
-        return "Total cost is: " + total;
+        return "Total cost is: " + Math.round(total * 100.0f) / 100.0f;
     }
 
 
